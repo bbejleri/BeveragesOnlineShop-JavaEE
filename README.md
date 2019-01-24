@@ -19,6 +19,7 @@
 
 ##How it works
 ######Frontend
+
 The frontend package encapsulates all the interconnection between the user(Beverage Store user, Salesman user) and the backend logic i.e the application logic.
 For the Beverages Store user:
 The Christmas Beverages Store's user plays the role of a buyer on an online shop. He chooses his goods i.e beverages, and the respective quantities through a **frontend user interface build as a jsp file**.
@@ -33,6 +34,7 @@ It is only used to illustrate the functionality required.
 As soon as a checkbox is ticked, a beverage is choosen, and therefore the respective quantity should be added as well. This can be done for any of the beverages, there can be chosen more than one. When the button of type submit, **Place Order**, is clicked
 the from is submitted. The form is coded in the way that as soon as it is submitted it redirects to the respective servlet(Beverages Servlet), and this is done by specifying the form action by the servlet path. Furthermore, the method of this form is set to POST, which indicates that
 as soon as the servlet is reached, it should execute the **doPost** method.
+
 -The BeveragesServlet:
 The Beverages Servlet is reached when an order is placed. It contains three methods: doGet, doPost, doDelete. The core functionality of this servlet is established by the doPost method, which is reached by the main.jsp file.
 The functionalty of this method is to get an order request, send it to a **JMS Queue** which will be then persised to the database as a new order. Since **beverage** and **orders** are seperated entities on the database, the order placement
@@ -63,6 +65,8 @@ All the methods above are **Enterprise Java Bean**(EJB) methods, declared on the
 -The web.xml file
 The web.xml file is a file written in xml which manages the servlet declarations. For each servlet, the servlet name, class/jsp-file, and the url pattern of this servlet is configured. Since there are two servlets
 in this project solution, there are two different configurations for each.
+
+
 ######Shared
 The shared folder is devided into two different packages: model and persistence.
 -Model
@@ -73,6 +77,8 @@ All objects have their respective set and get methods.
 -Persistence
 The persistence package contains the interfaces implemented by EJBs respectively.
 Each interface contains the respective EJB methods. The methods are only declared i.e they do not specify a body. The implementation is made inside the respecive bean in the backend.
+
+
 ######Backend 
 The backend is the most important folder of this project. It contains all the EJBs and all the implementation of the JPA framework.
 It is again divided in two packages: beans and entities.
@@ -156,6 +162,8 @@ This is the only Message Driven Bean of this project.
 It specifies a JMS connnection factory and a Queue, which exist in the server.
 It implements the method: onMessage(Message message) which can be seen as a listener that listens to a message that comes. 
 It takes this message as a parameter and operates on it. In this project, as soon as a message arrives in the queue (from the BeveragesServlet), it persist the order to the database.
+
+
 -Transactions(JTA)
 For all the implemented EJBs transactions are used. 
 For this, an object of UserTransaction is created, and for each CRUD operation, the transaction begins, commits and rollsback if an exception is thrown while trying to execute 
