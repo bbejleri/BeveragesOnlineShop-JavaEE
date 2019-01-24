@@ -36,6 +36,7 @@ the from is submitted. The form is coded in the way that as soon as it is submit
 as soon as the servlet is reached, it should execute the **doPost** method.
 
 -The BeveragesServlet:
+
 The Beverages Servlet is reached when an order is placed. It contains three methods: doGet, doPost, doDelete. The core functionality of this servlet is established by the doPost method, which is reached by the main.jsp file.
 The functionalty of this method is to get an order request, send it to a **JMS Queue** which will be then persised to the database as a new order. Since **beverage** and **orders** are seperated entities on the database, the order placement
 can't be done directly with the data retrieved by the interface. Each order which is going to be persist on the database has to fulfil all the attributes of the order entity, which includes: the number of beverages and the order issue date(the id of the order is self-generated).
@@ -45,6 +46,7 @@ which will be passed as a parameter when creating the CustomerOrder object. Fina
 This interface provides the salesmans(more than one) with the ability to manage their goods and also includes a **Bussiness Intelligence** functionality.
 This jsp file redirects to the Salesman Servlet, through the form action, and invokes the doPost method of this servlet, by specifying the form method as POST.
 It containes all the needed input fields and button which invoke the following methods: 
+
 **1.** Overview of all beverages 
 **2.** Add new beverage.
 **3.** Assign incentive to a beverage.
@@ -54,6 +56,7 @@ It containes all the needed input fields and button which invoke the following m
 Also, for the BI functionallity it invokes the following methods:
 **7.** A report showing the overall summarized revenue of all orders.
 **8.** The revenue of all orders broken down to the different incentive types i.e promotional gift, trial package, no incentive.
+
 All the buttons of this interface are of the type submit, and thus everytime a button is clicked, no matter which, the form redirects to the servlet.
 -The Salesman Servlet
 Contains only one method: doPost
@@ -68,6 +71,7 @@ in this project solution, there are two different configurations for each.
 
 
 ######Shared
+
 The shared folder is devided into two different packages: model and persistence.
 -Model
 The model package contains all the object classes for this projects: Beverage, CustomerOrder, Incentive, PromotionalGift, TrialPackage.
@@ -82,6 +86,7 @@ Each interface contains the respective EJB methods. The methods are only declare
 ######Backend 
 The backend is the most important folder of this project. It contains all the EJBs and all the implementation of the JPA framework.
 It is again divided in two packages: beans and entities.
+
 -Entities
 The entities package implements all the entities and the relations between this entities.
 The main purpose of this framework is database mapping. For each table on the database, there exists an entity representing that particular table.
@@ -100,10 +105,12 @@ Moreover, in order for the data relationships between entities to not be loaded 
 The opposite happens with fetch type EAGER, where collections are loaded at once, even if not needed/used.
 In order to perform CRUD operations to this entites, a SQL like query language is used. For this, and for a better understanding of the code, named queries are used. 
 @NamedQuery(name, query) is an annotation that lets one declare a named query, to further use it when needed.
+
 -Beans
 Enterprise JavaBeans (EJB) is one of several Java APIs for modular construction of enterprise software, as this one.
 EJBs are server side software components that encapsulate the application logic. They are managed by the EJB container.
 In this project there are four beens, from which three **session beans** and one **message driven bean**.
+
 **The session beans:**
 **1.**BeverageManagementBean
 **2.**IncentiveManagementBean
@@ -122,6 +129,7 @@ This bean, implements the methods of the respecive interface:
 takes all parameters of a Beverage object and creates a new object to persist on the database.
 2.viewBeverages() returns a list of all beverages read on the database(uses the respecive named query 'viewAll')
 3.assign(String inc_name, String bev_name) which takes the beverage name for which an incentive is going to be assigned and the incentive name.
+
 -The IncentiveManagementBean
 It is of type **Stateless** since:
 **1.**The bean state should save no data for the client.
